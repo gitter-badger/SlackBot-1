@@ -27,8 +27,27 @@ message.react('icon_emoji') 発言者のメッセージにリアクション(ス
 @respond_to('かわいい')
 def mention_func(message):
     message.reply("萌え豚は養豚場に帰って下さい")  # メンション
+    message.react('+1')
 
 
 @listen_to('おはよう')
 def listen_func(message):
     message.reply('おはようございます！')
+
+
+count = 0
+
+
+@default_reply()
+def default_func(message):
+    global count        # 外で定義した変数の値を変えられるようにする
+    count += 1
+    if count > 4:
+        message.reply('%d 回目なんですけど…いい加減つば飛ばさないでくださいますか' % count)
+    else:
+        message.reply("はい！")
+
+
+@respond_to(r'正規表現')
+def ping_func(message):
+    message.reply('えっと…正規表現ってなんですか？')
